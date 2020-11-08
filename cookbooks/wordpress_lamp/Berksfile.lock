@@ -1,0 +1,9 @@
+DEPENDENCIES
+  wordpress_lamp
+    path: .
+    metadata: true
+
+GRAPH
+  lamp (1.0.4)
+  wordpress_lamp (0.1.0)
+    lamp (>= 0.0.0)
