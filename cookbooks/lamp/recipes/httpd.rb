@@ -1,10 +1,10 @@
-service 'httpd' do
+service 'apache2' do
   action [:start,:enable]
 end
 
 group 'www' do
   action :modify
-  members 'ec2-user'
+  members 'root'
   append true
 end
 
