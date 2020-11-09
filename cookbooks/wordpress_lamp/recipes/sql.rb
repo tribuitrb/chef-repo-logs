@@ -1,9 +1,9 @@
-sql_password = Chef::EncryptedDataBagItem.load('mysql', 'password')
+sql_password = 'Vietnam@2020'
 
 cookbook_file 'tmp/sql_dump.sql' do
   source 'sql_dump.sql'
-  owner 'ec2-user'
-  group 'ec2-user'
+  owner 'root'
+  group 'root'
   mode '0444'
   action :create
 end
@@ -11,9 +11,12 @@ end
 bash 'import sql' do
   cwd "/tmp"
   code <<-EOH
-  mysql -u root -p#{sql_password['mysql_password']} -e "CREATE DATABASE #{node['wordpress_lamp']['sql']['database']}"
-  mysql -u root -p#{sql_password['mysql_password']} -e "GRANT ALL PRIVILEGES ON #{node['wordpress_lamp']['sql']['database']}.* to '#{node['wordpress_lamp']['sql']['database']}'@'#{node['wordpress_lamp']['sql']['database_host']}' IDENTIFIED BY '#{sql_password['mysql_password']}'"
-  mysql -u root -p#{sql_password['mysql_password']} #{node['wordpress_lamp']['sql']['database']} < /tmp/sql_dump.sql
+  mysql -u root -p'Vietnam@2020' -e "CREATE USER '#{node['wordpress_lamp']['sql']['database_user']}'@'#{node['wordpress_lamp']['sql']['database_host']}' IDENTIFIED BY 'Vietnam@2020'"
+  mysql -u root -p'Vietnam@2020' -e "CREATE DATABASE #{node['wordpress_lamp']['sql']['database']}"
+  mysql -u root -p'Vietnam@2020' -e "GRANT ALL PRIVILEGES ON #{node['wordpress_lamp']['sql']['database']}.* to '#{node['wordpress_lamp']['sql']['database_user']}'@'#{node['wordpress_lamp']['sql']['database_host']}'"
+  mysql -u root -p'Vietnam@2020' -e "FLUSH PRIVILEGES"
   EOH
-  only_if { node['wordpress_lamp']['sql']['import_sql']  }
+  only_if { node['wordpress_lamp']['sql']['import_sql'] }
 end
+
+#mysql -u root -p#{sql_password} #{node['wordpress_lamp']['sql']['database']} < /tmp/sql_dump.sql

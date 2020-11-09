@@ -5,7 +5,9 @@
   ServerAlias      <%= @ServerAlias %>
   DirectoryIndex   index.php
 
-  ErrorLog         logs/porc-errorlog
+  ErrorLog ${APACHE_LOG_DIR}/error.log
+  CustomLog ${APACHE_LOG_DIR}/access.log combined
+
   <Directory /var/www/<%= @Website %>/current>
     Options       Indexes FollowSymlinks
     AllowOverride All

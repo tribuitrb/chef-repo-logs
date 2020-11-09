@@ -16,6 +16,7 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
+/**
 define( 'DB_CREDENTIALS_PATH', dirname( ABSPATH ) ); // cache it for multiple use
 define( 'WP_LOCAL_SERVER', file_exists( DB_CREDENTIALS_PATH . '/wp-config-local.php' ) );
 define( 'WP_STAGING_SERVER', file_exists( DB_CREDENTIALS_PATH . '/wp-config-staging.php' ) );
@@ -39,7 +40,14 @@ if ( WP_LOCAL_SERVER ){
     define('DB_COLLATE', ''); //WPE
     define('WP_DEBUG', false);
 }
-
+*/
+define('DB_NAME', '<%= @DatabaseName %>');
+define('DB_USER', '<%= @DatabaseUser %>');
+define('DB_PASSWORD', '<%= @DatabasePassword %>');
+define('DB_HOST', '<%= @DatabaseHost %>');
+define('DB_CHARSET', 'utf8'); //WPE
+define('DB_COLLATE', ''); //WPE
+define('WP_DEBUG', false);
 
 /**#@+
  * Authentication Unique Keys and Salts.
@@ -50,14 +58,14 @@ if ( WP_LOCAL_SERVER ){
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '<%= @AuthKey %>');
-define('SECURE_AUTH_KEY',  '<%= @SecureAuthKey %>');
-define('LOGGED_IN_KEY',    '<%= @LoggedInKey %>');
-define('NONCE_KEY',        '<%= @NonceKey %>');
-define('AUTH_SALT',        '<%= @AuthSalt %>');
-define('SECURE_AUTH_SALT', '<%= @SecureAuthSalt %>');
-define('LOGGED_IN_SALT',   '<%= @LoggedInSalt %>');
-define('NONCE_SALT',       '<%= @NonceSalt %>');
+define('AUTH_KEY',         '}Nl#1cXQc?DfM cR1|_OuoX=Oxe{+hlju+3tIP}=w@c9=-b6:t/],|s[:Xgz>[(9');
+define('SECURE_AUTH_KEY',  'omnA|SrqD}?yYrVT~.{PwEG7>XdAvS1a/dr(rCUbtMYrJSr+s1zg]Mjt0+SD6h~`');
+define('LOGGED_IN_KEY',    '_-v_P<XB57f-_G/DQ2KQ<XlZw-A:_Of:qy=CEPe~~VwI1>7yy?6x+B.0mp Rc{ >');
+define('NONCE_KEY',        '4#A|w*c=H5jX- *^_@Sf[OBVGasnolY[f+yNz;7MeyJ:Ts%6>Eqn]LElv:Y2LBdu');
+define('AUTH_SALT',        'FIeVl<yG*|kjdgZ9TZa89?nRnhTQ+2Vv6~S8x&3*]dfX@y7{J_bL<S%VnA>vEhib');
+define('SECURE_AUTH_SALT', '5~GEju<;!@yZ`d=S3a,x3|]c-oC:obLz5R]8]6[qwTsU.>8C.s2a}{9lrU^!g@nB');
+define('LOGGED_IN_SALT',   'Fag<CQjbwBfyy,[l$6GoNZvg)yK(hox9f-GGe>Ct2w1S{Sph@GSz;S*C~1=7bp*L');
+define('NONCE_SALT',       ' Bfbg6M]%3}2&E,;bR[Zm+k8+0?#65,+` DQ;m=UX?y*6z |m&HIW,pv@mL%mup+');
 
   /**#@-*/
 

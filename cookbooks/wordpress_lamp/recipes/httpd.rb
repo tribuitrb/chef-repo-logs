@@ -1,6 +1,6 @@
 # TODO: Add support for multiple websites
 
-template "/etc/httpd/conf.d/#{node['wordpress_lamp']['site']}.conf" do
+template "/etc/apache2/sites-available/#{node['wordpress_lamp']['site']}.conf" do
   source 'vhost.erb'
   variables({
     ServerAdmin:  node['wordpress_lamp']['vhost']['server_admin'],

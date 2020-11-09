@@ -1,41 +1,33 @@
-sql_password = Chef::EncryptedDataBagItem.load('mysql', 'password')
-wordpress_salts = Chef::EncryptedDataBagItem.load('wordpress', 'salts')
+sql_password = 'Vietnam@2020'
 
 directory "/var/www/#{node['wordpress_lamp']['site']}/" do
   action :create
-  owner "ec2-user"
-  group "www"
+  owner "user-www"
+  group "user-www"
   mode "2775"
 end
 
-directory "/var/www/#{node['wordpress_lamp']['site']}/shared/" do
+directory "/var/www/#{node['wordpress_lamp']['site']}/current/" do
   action :create
-  owner "ec2-user"
-  group "www"
+  owner "user-www"
+  group "user-www"
   mode  "2775"
   recursive true
 end
 
-template "/var/www/#{node['wordpress_lamp']['site']}/shared/wp-config.php" do
+template "/var/www/#{node['wordpress_lamp']['site']}/current/wp-config.php" do
   source 'wp-config.php.erb'
-  notifies :restart, 'service[httpd]', :delayed
+  # notifies :restart, 'service[apache2]', :delayed
   variables({
-    DatabasePassword: sql_password['mysql_password'],
+    DatabasePassword: sql_password,
     DatabaseName:     node['wordpress_lamp']['sql']['database'],
-    DatabaseHost:     node['wordpress_lamp']['sql']['database_host'],
-    AuthKey: wordpress_salts['auth_key'],
-    SecureAuthKey: wordpress_salts['secure_auth_key'],
-    LoggedInKey: wordpress_salts['logged_in_key'],
-    NonceKey: wordpress_salts['nonce_key'],
-    AuthSalt: wordpress_salts['auth_salt'],
-    SecureAuthSalt: wordpress_salts['secure_auth_salt'],
-    LoggedInSalt: wordpress_salts['logged_in_salt'],
-    NonceSalt: wordpress_salts['nonce_salt']
+    DatabaseUser:     node['wordpress_lamp']['sql']['database_user'],
+    DatabaseHost:     node['wordpress_lamp']['sql']['database_host']
   })
 end
 
 execute 'chown-var-www' do
-  command 'chown -R apache:www /var/www'
+  command 'chown -R user-www:root /var/www'
   action :run
 end
 

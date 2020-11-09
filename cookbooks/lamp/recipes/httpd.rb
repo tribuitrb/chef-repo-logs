@@ -1,3 +1,11 @@
+execute 'apache_configtest' do
+  command 'apt update'
+end
+
+package 'apache2' do
+  action :install
+end
+
 service 'apache2' do
   action [:start,:enable]
 end
